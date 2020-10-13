@@ -19,7 +19,7 @@ class PATH:
         # self.DATA_ROOT = '/home/features'
 
         self.DATA_PATH = {
-            'vqa': self.DATA_ROOT + '/vqa',
+            'vqa': self.DATA_ROOT,
             'gqa': self.DATA_ROOT + '/gqa',
             'clevr': self.DATA_ROOT + '/clevr',
         }
@@ -45,13 +45,13 @@ class PATH:
 
         self.RAW_PATH = {
             'vqa': {
-                'train': self.DATA_PATH['vqa'] + '/raw' + '/v2_OpenEnded_mscoco_train2014_questions.json',
-                'train-anno': self.DATA_PATH['vqa'] + '/raw' + '/v2_mscoco_train2014_annotations.json',
-                'val': self.DATA_PATH['vqa'] + '/raw' + '/v2_OpenEnded_mscoco_val2014_questions.json',
-                'val-anno': self.DATA_PATH['vqa'] + '/raw' + '/v2_mscoco_val2014_annotations.json',
-                'vg': self.DATA_PATH['vqa'] + '/raw' + '/VG_questions.json',
-                'vg-anno': self.DATA_PATH['vqa'] + '/raw' + '/VG_annotations.json',
-                'test': self.DATA_PATH['vqa'] + '/raw' + '/v2_OpenEnded_mscoco_test2015_questions.json',
+                'train': self.DATA_PATH['vqa'] + '/v2_OpenEnded_mscoco_train2014_questions.json',
+                'train-anno': self.DATA_PATH['vqa'] + '/v2_mscoco_train2014_annotations.json',
+                'val': self.DATA_PATH['vqa']  + '/v2_OpenEnded_mscoco_val2014_questions.json',
+                'val-anno': self.DATA_PATH['vqa']  + '/v2_mscoco_val2014_annotations.json',
+                'vg': self.DATA_PATH['vqa']  + '/VG_questions.json',
+                'vg-anno': self.DATA_PATH['vqa']  + '/VG_annotations.json',
+                'test': self.DATA_PATH['vqa']  + '/v2_OpenEnded_mscoco_test2015_questions.json',
             },
             'gqa': {
                 'train': self.DATA_PATH['gqa'] + '/raw' + '/questions1.2/train_balanced_questions.json',
@@ -90,31 +90,34 @@ class PATH:
 
         }
 
+        self.RESULT_ROOT = '/kaggle/working'
+        self.RESULT_PATH = self.RESULT_ROOT + '/results/result_test'
+        self.PRED_PATH = self.RESULT_ROOT + '/results/pred'
+        self.CACHE_PATH = self.RESULT_ROOT + '/results/cache'
+        self.LOG_PATH = self.RESULT_ROOT + '/results/log'
+        self.CKPTS_PATH = self.RESULT_ROOT + '/ckpts'
 
-        self.RESULT_PATH = './results/result_test'
-        self.PRED_PATH = './results/pred'
-        self.CACHE_PATH = './results/cache'
-        self.LOG_PATH = './results/log'
-        self.CKPTS_PATH = './ckpts'
+        if 'result_test' not in os.listdir(self.RESULT_ROOT):
+            os.mkdir(self.RESULT_ROOT + '/results')
 
-        if 'result_test' not in os.listdir('./results'):
-            os.mkdir('./results/result_test')
+        if 'result_test' not in os.listdir(self.RESULT_ROOT + '/results'):
+            os.mkdir(self.RESULT_ROOT + '/results/result_test')
 
-        if 'pred' not in os.listdir('./results'):
-            os.mkdir('./results/pred')
+        if 'pred' not in os.listdir(self.RESULT_ROOT + '/results'):
+            os.mkdir(self.RESULT_ROOT + '/results/pred')
 
-        if 'cache' not in os.listdir('./results'):
-            os.mkdir('./results/cache')
+        if 'cache' not in os.listdir(self.RESULT_ROOT + '/results'):
+            os.mkdir(self.RESULT_ROOT + '/results/cache')
 
-        if 'log' not in os.listdir('./results'):
-            os.mkdir('./results/log')
+        if 'log' not in os.listdir(self.RESULT_ROOT + '/results'):
+            os.mkdir(self.RESULT_ROOT + '/results/log')
 
         if 'ckpts' not in os.listdir('./'):
-            os.mkdir('./ckpts')
+            os.mkdir(self.RESULT_ROOT + '/results/ckpts')
 
 
     def check_path(self, dataset=None):
-        print('Checking dataset ........')
+        print('Checking dataset ........', dataset)
 
 
         if dataset:
