@@ -78,7 +78,7 @@ class DataSet(BaseDataSet):
         print(' ========== Question token vocab size:', self.token_size)
 
         # Answers statistic
-        self.ans_to_ix, self.ix_to_ans = self.ans_stat('./answer_dict.json')
+        self.ans_to_ix, self.ix_to_ans = self.ans_stat('/kaggle/input/openvqa/openvqa/datasets/vqa/answer_dict.json')
         # self.ans_to_ix, self.ix_to_ans = self.ans_stat(stat_ans_list, ans_freq=8)
         self.ans_size = self.ans_to_ix.__len__()
         print(' ========== Answer token vocab size (occur more than {} times):'.format(8), self.ans_size)
