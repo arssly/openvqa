@@ -97,8 +97,8 @@ class PATH:
         self.LOG_PATH = self.RESULT_ROOT + '/results/log'
         self.CKPTS_PATH = self.RESULT_ROOT + '/ckpts'
 
-        if 'result_test' not in os.listdir(self.RESULT_ROOT):
-            os.mkdir(self.RESULT_ROOT + '/results')
+        if 'results' not in os.listdir(self.RESULT_ROOT):
+            os.mkdir(self.RESULT_ROOT + '/results/')
 
         if 'result_test' not in os.listdir(self.RESULT_ROOT + '/results'):
             os.mkdir(self.RESULT_ROOT + '/results/result_test')
