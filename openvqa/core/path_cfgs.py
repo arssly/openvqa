@@ -112,7 +112,7 @@ class PATH:
         if 'log' not in os.listdir(self.RESULT_ROOT + '/results'):
             os.mkdir(self.RESULT_ROOT + '/results/log')
 
-        if 'ckpts' not in os.listdir('./'):
+        if 'ckpts' not in os.listdir(self.RESULT_ROOT + '/results'):
             os.mkdir(self.RESULT_ROOT + '/results/ckpts')
 
 
