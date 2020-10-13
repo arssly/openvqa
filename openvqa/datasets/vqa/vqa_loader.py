@@ -64,9 +64,10 @@ class DataSet(BaseDataSet):
 
         # load image preprocessing model
         os.chdir("/kaggle/input/pre-models")
-        preproc_model_path = self.__C.PREPROC_MODEL + '.preproc' 
-        preproc_module = import_module(preproc_model_path)
-        self.preproc_model = preproc_module.preproc_to_feats
+        from resnet import preproc
+        # preproc_model_path = self.__C.PREPROC_MODEL + '.preproc' 
+        #preproc_module = import_module(preproc_model_path)
+        self.preproc_model = preproc.preproc_to_feats
         os.chdir("/kaggle/working/")
 
         # {image id} -> {image feature absolutely path}
