@@ -13,7 +13,7 @@ class PATH:
 
     def init_path(self):
 
-        self.DATA_ROOT = '/kaggle/input/arsalan_data'
+        self.DATA_ROOT = '/kaggle/input/arsalan-data'
         # self.DATA_ROOT = '/data/datasets'
         # self.DATA_ROOT = '/data1/datasets'
         # self.DATA_ROOT = '/home/features'
