@@ -1,6 +1,6 @@
 import torch
 from PIL import Image
-from resnet_model import model, preproc_transform
+from openvqa.premodels.resnet.resnet_model import model, preproc_transform
 
 
 def preproc_to_feats(image):
