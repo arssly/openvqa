@@ -141,7 +141,7 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
 
-    cfg_file = "./configs/{}/{}.yml".format(args.DATASET, args.MODEL)
+    cfg_file = "/kaggle/input/openvqa/configs/{}/{}.yml".format(args.DATASET, args.MODEL)
     with open(cfg_file, 'r') as f:
         yaml_dict = yaml.load(f)
 
