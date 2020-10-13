@@ -13,7 +13,7 @@ class PATH:
 
     def init_path(self):
 
-        self.DATA_ROOT = './data'
+        self.DATA_ROOT = '/kaggle/input/arsalan_data'
         # self.DATA_ROOT = '/data/datasets'
         # self.DATA_ROOT = '/data1/datasets'
         # self.DATA_ROOT = '/home/features'
@@ -27,9 +27,9 @@ class PATH:
 
         self.FEATS_PATH = {
             'vqa': {
-                'train': self.DATA_PATH['vqa'] + '/feats' + '/train2014',
-                'val': self.DATA_PATH['vqa'] + '/feats' + '/val2014',
-                'test': self.DATA_PATH['vqa'] + '/feats' + '/test2015',
+                'train': self.DATA_PATH['vqa']  + '/train2014',
+                'val': self.DATA_PATH['vqa'] + '/val2014',
+                'test': self.DATA_PATH['vqa'] + '/test2015',
             },
             'gqa': {
                 'default-frcn': self.DATA_PATH['gqa'] + '/feats' + '/gqa-frcn',

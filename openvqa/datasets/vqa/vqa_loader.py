@@ -5,6 +5,7 @@
 
 
 from importlib import import_module
+import os
 import numpy as np
 import glob, json, re, en_vectors_web_lg
 from PIL import Image
@@ -22,9 +23,9 @@ class DataSet(BaseDataSet):
 
         # Loading all image paths
         frcn_feat_path_list = \
-            glob.glob(__C.FEATS_PATH[__C.DATASET]['train'] + '/*.npz') + \
-            glob.glob(__C.FEATS_PATH[__C.DATASET]['val'] + '/*.npz') + \
-            glob.glob(__C.FEATS_PATH[__C.DATASET]['test'] + '/*.npz')
+            glob.glob(__C.FEATS_PATH[__C.DATASET]['train'] + '/*.jpg') + \
+            glob.glob(__C.FEATS_PATH[__C.DATASET]['val'] + '/*.jpg') + \
+            glob.glob(__C.FEATS_PATH[__C.DATASET]['test'] + '/*.jpg')
 
         # Loading question word list
         stat_ques_list = \
