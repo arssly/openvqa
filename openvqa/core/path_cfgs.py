@@ -49,8 +49,8 @@ class PATH:
                 'train-anno': self.DATA_PATH['vqa'] + '/v2_mscoco_train2014_annotations.json',
                 'val': self.DATA_PATH['vqa']  + '/v2_OpenEnded_mscoco_val2014_questions.json',
                 'val-anno': self.DATA_PATH['vqa']  + '/v2_mscoco_val2014_annotations.json',
-                # 'vg': self.DATA_PATH['vqa']  + '/VG_questions.json',
-                # 'vg-anno': self.DATA_PATH['vqa']  + '/VG_annotations.json',
+                'vg': self.DATA_PATH['vqa']  + '/VG_questions.json',
+                'vg-anno': self.DATA_PATH['vqa']  + '/VG_annotations.json',
                 'test': self.DATA_PATH['vqa']  + '/v2_OpenEnded_mscoco_test2015_questions.json',
             },
             'gqa': {
