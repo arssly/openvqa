@@ -46,7 +46,6 @@ class BaseCfgs(PATH):
         # ------------------------------
         # ---- Data Provider Params ----
         # ------------------------------
-
         self.MODEL = ''
 
         self.MODEL_USE = ''
@@ -55,6 +54,11 @@ class BaseCfgs(PATH):
 
         # Run as 'train' 'val' or 'test'
         self.RUN_MODE = ''
+
+        # The model to use for preprocessing grid features
+        # there should also be a folder with the same name present in inputs 
+        # that contains a preproc module and preproc_to_feats function
+        self.PREPROC_MODEL = 'resnet'
 
         # Set True to evaluate offline when an epoch finished
         # (only work when train with 'train' split)
@@ -82,6 +86,7 @@ class BaseCfgs(PATH):
             'vqa': {
                 'FRCN_FEAT_SIZE': (100, 2048),
                 'BBOX_FEAT_SIZE': (100, 5),
+                'GRID_FEAT_SIZE': (196, 2048),
             },
             'gqa': {
                 'FRCN_FEAT_SIZE': (100, 2048),

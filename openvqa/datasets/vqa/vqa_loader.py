@@ -3,8 +3,11 @@
 # Written by Yuhao Cui https://github.com/cuiyuhao1996
 # --------------------------------------------------------
 
+
+from importlib import import_module
 import numpy as np
 import glob, json, re, en_vectors_web_lg
+from PIL import Image
 from openvqa.core.base_dataset import BaseDataSet
 from openvqa.utils.ans_punct import prep_ans
 
@@ -57,6 +60,13 @@ class DataSet(BaseDataSet):
         # ------------------------
         # ---- Data statistic ----
         # ------------------------
+
+        # load image preprocessing model
+        os.chdir("/kaggle/input/pre_models")
+        preproc_model_path = self.__C.PREPROC_MODEL + '.preproc' 
+        preproc_module = import_module(preproc_model_path)
+        self.preproc_model = preproc_module.preproc_to_feats
+        os.chdir("/kaggle/working/")
 
         # {image id} -> {image feature absolutely path}
         self.iid_to_frcn_feat_path = self.img_feat_path_load(frcn_feat_path_list)
@@ -190,21 +200,30 @@ class DataSet(BaseDataSet):
             return ques_ix_iter, np.zeros(1), iid
 
 
-    def load_img_feats(self, idx, iid):
-        frcn_feat = np.load(self.iid_to_frcn_feat_path[iid])
-        frcn_feat_x = frcn_feat['x'].transpose((1, 0))
-        frcn_feat_iter = self.proc_img_feat(frcn_feat_x, img_feat_pad_size=self.__C.FEAT_SIZE['vqa']['FRCN_FEAT_SIZE'][0])
+    # def load_img_feats(self, idx, iid):
+    #     frcn_feat = np.load(self.iid_to_frcn_feat_path[iid])
+    #     frcn_feat_x = frcn_feat['x'].transpose((1, 0))
+    #     frcn_feat_iter = self.proc_img_feat(frcn_feat_x, img_feat_pad_size=self.__C.FEAT_SIZE['vqa']['FRCN_FEAT_SIZE'][0])
 
-        bbox_feat_iter = self.proc_img_feat(
-            self.proc_bbox_feat(
-                frcn_feat['bbox'],
-                (frcn_feat['image_h'], frcn_feat['image_w'])
-            ),
-            img_feat_pad_size=self.__C.FEAT_SIZE['vqa']['BBOX_FEAT_SIZE'][0]
-        )
-        grid_feat_iter = np.zeros(1)
+    #     bbox_feat_iter = self.proc_img_feat(
+    #         self.proc_bbox_feat(
+    #             frcn_feat['bbox'],
+    #             (frcn_feat['image_h'], frcn_feat['image_w'])
+    #         ),
+    #         img_feat_pad_size=self.__C.FEAT_SIZE['vqa']['BBOX_FEAT_SIZE'][0]
+    #     )
+    #     grid_feat_iter = np.zeros(1)
 
-        return frcn_feat_iter, grid_feat_iter, bbox_feat_iter
+    #     return frcn_feat_iter, grid_feat_iter, bbox_feat_iter
+
+
+    def load_img_feats(self, idx, iid): 
+        image = Image.open(self.iid_to_frcn_feat_path[iid])
+        grid_feats = self.preproc_model(image)
+
+        bbox_feat_iter = np.zeros(1)
+
+        return grid_feats, np.zeros(1), bbox_feat_iter
 
 
 
