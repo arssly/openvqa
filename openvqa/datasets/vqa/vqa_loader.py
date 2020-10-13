@@ -11,6 +11,7 @@ import glob, json, re, en_vectors_web_lg
 from PIL import Image
 from openvqa.core.base_dataset import BaseDataSet
 from openvqa.utils.ans_punct import prep_ans
+from openvqa.premodels.resnet import preproc
 
 class DataSet(BaseDataSet):
     def __init__(self, __C):
@@ -63,12 +64,7 @@ class DataSet(BaseDataSet):
         # ------------------------
 
         # load image preprocessing model
-        os.chdir("/kaggle/input/pre-models/resnet")
-        import preproc
-        # preproc_model_path = self.__C.PREPROC_MODEL + '.preproc' 
-        #preproc_module = import_module(preproc_model_path)
         self.preproc_model = preproc.preproc_to_feats
-        os.chdir("/kaggle/working/")
 
         # {image id} -> {image feature absolutely path}
         self.iid_to_frcn_feat_path = self.img_feat_path_load(frcn_feat_path_list)
