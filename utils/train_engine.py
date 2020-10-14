@@ -97,7 +97,8 @@ def train_engine(__C, dataset, dataset_eval=None):
         shuffle=True,
         num_workers=__C.NUM_WORKERS,
         pin_memory=__C.PIN_MEM,
-        drop_last=True
+        drop_last=True,
+        multiprocessing_context='spawn'
     )
 
     logfile = open(
