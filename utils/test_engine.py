@@ -65,7 +65,8 @@ def test_engine(__C, dataset, state_dict=None, validation=False):
         batch_size=__C.EVAL_BATCH_SIZE,
         shuffle=False,
         num_workers=__C.NUM_WORKERS,
-        pin_memory=__C.PIN_MEM
+        pin_memory=__C.PIN_MEM,
+        multiprocessing_context='spawn'
     )
 
     for step, (
