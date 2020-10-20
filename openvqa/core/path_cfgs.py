@@ -13,7 +13,7 @@ class PATH:
 
     def init_path(self):
 
-        self.DATA_ROOT = '/kaggle/input/arsalan-data'
+        self.DATA_ROOT = './data/vqa'
         # self.DATA_ROOT = '/data/datasets'
         # self.DATA_ROOT = '/data1/datasets'
         # self.DATA_ROOT = '/home/features'
@@ -27,9 +27,9 @@ class PATH:
 
         self.FEATS_PATH = {
             'vqa': {
-                'train': self.DATA_PATH['vqa']  + '/train2014',
-                'val': self.DATA_PATH['vqa'] + '/val2014',
-                'test': self.DATA_PATH['vqa'] + '/test2015',
+                'train': self.DATA_PATH['vqa'] + '/raw' + '/train2014',
+                'val': self.DATA_PATH['vqa'] + '/raw' + '/val2014',
+                'test': self.DATA_PATH['vqa'] + '/raw' + '/test2015',
             },
             'gqa': {
                 'default-frcn': self.DATA_PATH['gqa'] + '/feats' + '/gqa-frcn',
@@ -45,13 +45,13 @@ class PATH:
 
         self.RAW_PATH = {
             'vqa': {
-                'train': self.DATA_PATH['vqa'] + '/v2_OpenEnded_mscoco_train2014_questions.json',
-                'train-anno': self.DATA_PATH['vqa'] + '/v2_mscoco_train2014_annotations.json',
-                'val': self.DATA_PATH['vqa']  + '/v2_OpenEnded_mscoco_val2014_questions.json',
-                'val-anno': self.DATA_PATH['vqa']  + '/v2_mscoco_val2014_annotations.json',
-                'vg': self.DATA_PATH['vqa']  + '/VG_questions.json',
-                'vg-anno': self.DATA_PATH['vqa']  + '/VG_annotations.json',
-                'test': self.DATA_PATH['vqa']  + '/v2_OpenEnded_mscoco_test2015_questions.json',
+                'train': self.DATA_PATH['vqa'] + '/raw' + '/v2_OpenEnded_mscoco_train2014_questions.json',
+                'train-anno': self.DATA_PATH['vqa'] + '/raw' + '/v2_mscoco_train2014_annotations.json',
+                'val': self.DATA_PATH['vqa']  + '/raw' + '/v2_OpenEnded_mscoco_val2014_questions.json',
+                'val-anno': self.DATA_PATH['vqa']  + '/raw' + '/v2_mscoco_val2014_annotations.json',
+                'vg': self.DATA_PATH['vqa']  + '/raw' + '/VG_questions.json',
+                'vg-anno': self.DATA_PATH['vqa']  + '/raw' + '/VG_annotations.json',
+                'test': self.DATA_PATH['vqa']  + '/raw' + '/v2_OpenEnded_mscoco_test2015_questions.json',
             },
             'gqa': {
                 'train': self.DATA_PATH['gqa'] + '/raw' + '/questions1.2/train_balanced_questions.json',
@@ -90,7 +90,7 @@ class PATH:
 
         }
 
-        self.RESULT_ROOT = '/kaggle/working'
+        self.RESULT_ROOT = '.'
         self.RESULT_PATH = self.RESULT_ROOT + '/results/result_test'
         self.PRED_PATH = self.RESULT_ROOT + '/results/pred'
         self.CACHE_PATH = self.RESULT_ROOT + '/results/cache'
