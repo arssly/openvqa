@@ -216,7 +216,7 @@ class DataSet(BaseDataSet):
 
 
     def load_img_feats(self, idx, iid): 
-        image = Image.open(self.iid_to_frcn_feat_path[iid])
+        image = Image.open(self.iid_to_frcn_feat_path[iid]).convert('RGB')
         grid_feats = self.preproc_model(image)
 
         bbox_feat_iter = np.zeros(1)

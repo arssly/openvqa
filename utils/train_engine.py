@@ -13,6 +13,17 @@ from openvqa.utils.optim import get_optim, adjust_lr
 from utils.test_engine import test_engine, ckpt_proc
 
 
+def clear_dir(folder):
+    for filename in os.listdir(folder):
+        file_path = os.path.join(folder, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+        except Exception as e:
+            print('Failed to delete %s. Reason: %s' % (file_path, e))
+
 def train_engine(__C, dataset, dataset_eval=None):
 
     data_size = dataset.data_size
@@ -201,7 +212,19 @@ def train_engine(__C, dataset, dataset_eval=None):
                 else:
                     mode_str = __C.SPLIT['train'] + '->' + __C.SPLIT['test']
 
-                print("\r[Version %s][Model %s][Dataset %s][Epoch %2d][Step %4d/%4d][%s] Loss: %.4f, Lr: %.2e" % (
+                # print("\r[Version %s][Model %s][Dataset %s][Epoch %2d][Step %4d/%4d][%s] Loss: %.4f, Lr: %.2e" % (
+                #     __C.VERSION,
+                #     __C.MODEL_USE,
+                #     __C.DATASET,
+                #     epoch + 1,
+                #     step,
+                #     int(data_size / __C.BATCH_SIZE),
+                #     mode_str,
+                #     loss_tmp / __C.SUB_BATCH_SIZE,
+                #     optim._rate
+                # ), end='          ')
+                print("\r[Time Passed: %s][Version %s][Model %s][Dataset %s][Epoch %2d][Step %4d/%4d][%s] Loss: %.4f, Lr: %.2e" % (
+                    time.strftime('%H:%M:%S', time.gmtime(time.time() - time_start)),
                     __C.VERSION,
                     __C.MODEL_USE,
                     __C.DATASET,
@@ -259,6 +282,17 @@ def train_engine(__C, dataset, dataset_eval=None):
             '/epoch' + str(epoch_finish) +
             '.pkl'
         )
+
+        drive_path = '/content/drive/My Drive/thesis/last_checkpoint'
+        if os.path.exists(drive_path):
+            clear_dir(drive_path)
+            torch.save(
+                state,
+                drive_path + 
+                '/ckpt_' + __C.VERSION +
+                '/epoch' + str(epoch_finish) +
+                '.pkl'
+            )
 
         # Logging
         logfile = open(
