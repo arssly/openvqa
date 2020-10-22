@@ -11,7 +11,7 @@ import glob, json, re, en_vectors_web_lg
 from PIL import Image
 from openvqa.core.base_dataset import BaseDataSet
 from openvqa.utils.ans_punct import prep_ans
-from openvqa.premodels.resnet import preproc
+from openvqa.premodels.resnest import preproc
 
 class DataSet(BaseDataSet):
     def __init__(self, __C):

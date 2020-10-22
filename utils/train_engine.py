@@ -286,6 +286,7 @@ def train_engine(__C, dataset, dataset_eval=None):
         drive_path = '/content/drive/My Drive/thesis/last_checkpoint'
         if os.path.exists(drive_path):
             clear_dir(drive_path)
+            os.mkdir(drive_path+ '/ckpt_' + __C.VERSION)
             torch.save(
                 state,
                 drive_path + 
