@@ -64,7 +64,7 @@ class DataSet(BaseDataSet):
 
         # load image preprocessing model
         preproc_modeule_path = 'openvqa.premodels.' + __C.PREPROC_MODEL + '.preproc'
-        self.preproc_model = preproc.preproc_transform
+        self.preproc_model = import_module(preproc_modeule_path).preproc_transform
 
         # {image id} -> {image feature absolutely path}
         self.iid_to_frcn_feat_path = self.img_feat_path_load(frcn_feat_path_list)
