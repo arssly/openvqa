@@ -23,7 +23,7 @@ def preproc_to_feats(image):
         device_model = model.to('cuda')
     with torch.no_grad():
         output = device_model(input_batch).detach().squeeze().cpu()
-        output = output.numpy().reshape((2048, -1)).transpose()
+        output = output.numpy()
     return output
 
 

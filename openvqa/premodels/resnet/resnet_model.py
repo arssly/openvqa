@@ -210,7 +210,9 @@ class ResNet(nn.Module):
         x = self.layer1(x)
         x = self.layer2(x)
         x = self.layer3(x)
-        x = self.layer4(x)
+        x = self.layer4(x) # (N, F, H, W)
+        x = torch.flatten(x, start_dim=-2) # (N, F, W*H)
+        x = torch.transpose(x, 1, 2) # (N. W*H, F)
         
         #x = self.avgpool(x)
         #x = torch.flatten(x, 1)
@@ -355,16 +357,6 @@ def wide_resnet101_2(pretrained=False, progress=True, **kwargs):
                    pretrained, progress, **kwargs)
 
 
-model = resnet50(pretrained=True, progress=True)
-model.eval()
-if torch.cuda.is_available():
-    model.to('cuda')
 
-preproc_transform = transforms.Compose([
-    transforms.Resize((448, 448)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                         std=[0.229, 0.224, 0.225]),
-])
 
 

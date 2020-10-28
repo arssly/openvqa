@@ -3,6 +3,7 @@
 # Written by Pengbing Gao https://github.com/nbgao
 # --------------------------------------------------------
 
+from importlib import import_module
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
@@ -18,6 +19,16 @@ class Adapter(BaseAdapter):
 
     def vqa_init(self, __C):
         self.frcn_linear = nn.Linear(__C.FEAT_SIZE['vqa']['FRCN_FEAT_SIZE'][1], __C.HIDDEN_SIZE)
+
+        preprocess_model_path = 'openvqa.premodels.' + __C.PREPROC_MODEL + '.model'
+        self.pre_process_model = import_module(preprocess_model_path)
+        if torch.cuda.is_available():
+            print('cuda available in pre processing model')
+            self.pre_process_model = self.pre_process_model.to('cuda')
+        else:
+            print('cuda NOT available in pre processing model')
+        for param in  self.pre_process_model.parameters():
+             param.requires_grad = False
 
 
     def gqa_init(self, __C):
@@ -38,7 +49,7 @@ class Adapter(BaseAdapter):
         bbox_feat = feat_dict['BBOX_FEAT']
 
         img_feat_mask = make_mask(frcn_feat)
-        img_feat = frcn_feat
+        img_feat = self.pre_process_model(frcn_feat)
         #[N, C, W] = img_feat.shape
         #img_feat = F.normalize(img_feat.view(N, -1)).view(N, C, W)
         return img_feat, img_feat_mask

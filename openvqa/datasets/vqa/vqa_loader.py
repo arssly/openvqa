@@ -11,7 +11,6 @@ import glob, json, re, en_vectors_web_lg
 from PIL import Image
 from openvqa.core.base_dataset import BaseDataSet
 from openvqa.utils.ans_punct import prep_ans
-from openvqa.premodels.resnest import preproc
 
 class DataSet(BaseDataSet):
     def __init__(self, __C):
@@ -64,7 +63,8 @@ class DataSet(BaseDataSet):
         # ------------------------
 
         # load image preprocessing model
-        self.preproc_model = preproc.preproc_to_feats
+        preproc_modeule_path = 'openvqa.premodels.' + __C.PREPROC_MODEL + '.preproc'
+        self.preproc_model = preproc.preproc_transform
 
         # {image id} -> {image feature absolutely path}
         self.iid_to_frcn_feat_path = self.img_feat_path_load(frcn_feat_path_list)
