@@ -68,7 +68,9 @@ def train_engine(__C, dataset, dataset_eval=None):
         if __C.N_GPU > 1:
             net.load_state_dict(ckpt_proc(ckpt['state_dict']))
         else:
-            net.load_state_dict(ckpt['state_dict'])
+            state = net.state_dict()
+            state.update(ckpt['state_dict'])
+            net.load_state_dict(state)
         start_epoch = ckpt['epoch']
 
         # Load the optimizer paramters

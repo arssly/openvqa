@@ -58,7 +58,10 @@ def test_engine(__C, dataset, state_dict=None, validation=False):
     if __C.N_GPU > 1:
         net = nn.DataParallel(net, device_ids=__C.DEVICES)
 
-    net.load_state_dict(state_dict)
+    state = net.state_dict()
+    state.update(state_dict)
+    net.load_state_dict(state)
+    # net.load_state_dict(state_dict)
 
     dataloader = Data.DataLoader(
         dataset,
