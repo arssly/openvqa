@@ -1,0 +1,5 @@
+_BASE_: "Base-RCNN-grid.yaml"
+MODEL:
+  WEIGHTS: "https://dl.fbaipublicfiles.com/grid-feats-vqa/R-50/R-50.pth"
+  RESNETS:
+    DEPTH: 50

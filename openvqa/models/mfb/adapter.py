@@ -20,8 +20,8 @@ class Adapter(BaseAdapter):
     def vqa_init(self, __C):
         self.frcn_linear = nn.Linear(__C.FEAT_SIZE['vqa']['FRCN_FEAT_SIZE'][1], __C.HIDDEN_SIZE)
 
-        preprocess_model_path = 'openvqa.premodels.' + __C.PREPROC_MODEL + '.preproc.model'
-        self.pre_process_model = import_module(preprocess_model_path)
+        preprocess_model_path = 'openvqa.premodels.' + __C.PREPROC_MODEL + '.preproc'
+        self.pre_process_model = import_module(preprocess_model_path).model
         if torch.cuda.is_available():
             print('cuda available in pre processing model')
             self.pre_process_model = self.pre_process_model.to('cuda')

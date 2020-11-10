@@ -21,7 +21,7 @@ data/vqa/feats/train2014/
 data/vqa/feats/val2014/
 data/vqa/feats/test2015/
 .idea/
-
+openvqa/premodels/output/
 
 
 # Byte-compiled / optimized / DLL files
