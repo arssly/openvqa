@@ -27,12 +27,6 @@ transf =  transforms.Compose([
     transforms.ToTensor(),
 ])
 
-def preproc_transform(image): 
-	image = image[:,:, [2,1,0]]
-	image = transf(image)
-	return {'width': 448, 'height': 448, 'image': torch.tensor(image)}
-
-
 cfg = setup()
 rcnn_model = build_model(cfg)
 DetectionCheckpointer(rcnn_model, save_dir=cfg.OUTPUT_DIR).resume_or_load(cfg.MODEL.WEIGHTS, resume=True)
@@ -42,9 +36,9 @@ class GridFeat(Module):
 		super(GridFeat, self).__init__()
 		self.rcnn = rcnn
 
-	def forward(self, inputs):
-		images = self.rcnn.preprocess_image(inputs) 
-		features = self.rcnn.backbone(images.tensor) 
+	def forward(self, images):
+		#images = self.rcnn.preprocess_image(inputs) 
+		features = self.rcnn.backbone(images) 
 		outputs = self.rcnn.roi_heads.get_conv5_features(features) 
 		outputs = torch.flatten(outputs, start_dim=-2)
 		outputs = torch.transpose(outputs, 1, 2)
@@ -52,10 +46,16 @@ class GridFeat(Module):
 
 model = GridFeat(rcnn_model)
 
+def preproc_transform(image): 
+  image = transf(image)
+  image = image[[2,1,0],:,:]
+  inputs = [{'width': 448, 'height': 448, 'image': image}]
+  image = model.rcnn.preprocess_image(inputs)
+  return image.tensor.squeeze(0)
 
 
 if __name__ == '__main__': 
-	i = Image.open('/Users/macbook/Downloads/vqa/val2014/COCO_val2014_000000000042.jpg')
+	i = Image.open('/content/openvqa/data/vqa/raw/val2014/COCO_val2014_000000000285.jpg')
 	i = preproc_transform(i)
-	o = model(i)
+	o = model(i.unsqueeze(0))
 	print('outputs shape is: ', o.shape)
