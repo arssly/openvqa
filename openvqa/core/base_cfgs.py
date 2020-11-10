@@ -58,7 +58,7 @@ class BaseCfgs(PATH):
         # The model to use for preprocessing grid features
         # there should also be a folder with the same name present in inputs 
         # that contains a preproc module and preproc_to_feats function
-        self.PREPROC_MODEL = 'resnet'
+        self.PREPROC_MODEL = 'grid_feat'
 
         # Set True to evaluate offline when an epoch finished
         # (only work when train with 'train' split)
