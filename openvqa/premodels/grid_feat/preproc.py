@@ -18,7 +18,7 @@ def setup():
 	# force the final residual block to have dilations 1   
 	cfg.MODEL.RESNETS.RES5_DILATION = 1 
 	cfg.freeze() 
-	default_setup(cfg, [])
+	#default_setup(cfg, [])
 	return cfg
 
 
@@ -51,7 +51,7 @@ def preproc_transform(image):
   image = image[[2,1,0],:,:]
   inputs = [{'width': 448, 'height': 448, 'image': image}]
   image = model.rcnn.preprocess_image(inputs)
-  return image.tensor.squeeze(0)
+  return image.tensor.squeeze(0).cpu()
 
 
 if __name__ == '__main__': 
